@@ -41,7 +41,7 @@ body {
   box-shadow: 0 15px 35px rgba(255, 105, 135, 0.2);
   text-align: center;
   border: 2px white solid;
-  max-width: 480px;
+  max-width: 600px;
   width: 90%;
   z-index: 1;
 }

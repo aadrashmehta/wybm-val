@@ -1,58 +1,42 @@
 const noBtn = document.getElementById("no-btn");
+const btnGroup = document.querySelector(".btn-group");
 
-function moveButton() {
-  const padding = 30;
+// Make sure button can move freely
+// noBtn.style.position = "absolute";
 
-  // 1. Get current viewport dimensions
-  const vWidth = window.innerWidth;
-  const vHeight = window.innerHeight;
+function moveButton(e) {
+  const btnRect = noBtn.getBoundingClientRect();
+  const groupRect = btnGroup.getBoundingClientRect();
 
-  // 2. Get button dimensions
-  const btnWidth = noBtn.offsetWidth;
-  const btnHeight = noBtn.offsetHeight;
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
 
-  // 3. Calculate max available coordinates
-  // We use Math.max to ensure maxX/maxY are at least 0
-  const maxX = Math.max(0, vWidth - btnWidth - padding);
-  const maxY = Math.max(0, vHeight - btnHeight - padding);
-
-  // 4. Generate random position within the safe range
-  // This formula ensures the result is always between 'padding' and 'max'
-  const randomX = Math.floor(Math.random() * (maxX - padding + 1)) + padding;
-  const randomY = Math.floor(Math.random() * (maxY - padding + 1)) + padding;
-
-  // 5. Apply style
-  noBtn.style.position = "fixed";
-  noBtn.style.left = `${randomX}px`;
-  noBtn.style.top = `${randomY}px`;
-
-  // Remove transform to prevent it from shifting the button further off-point
-  noBtn.style.transform = "none";
-}
-
-// Proximity Trigger
-document.addEventListener("mousemove", (e) => {
-  const rect = noBtn.getBoundingClientRect();
-
-  // If the button isn't visible yet or hasn't been moved, rect might be 0
-  if (rect.width === 0) return;
-
-  const btnCenterX = rect.left + rect.width / 2;
-  const btnCenterY = rect.top + rect.height / 2;
+  // Distance between mouse and button center
+  const btnCenterX = btnRect.left + btnRect.width / 2;
+  const btnCenterY = btnRect.top + btnRect.height / 2;
 
   const distance = Math.sqrt(
-    Math.pow(e.clientX - btnCenterX, 2) + Math.pow(e.clientY - btnCenterY, 2)
+    Math.pow(mouseX - btnCenterX, 2) + Math.pow(mouseY - btnCenterY, 2)
   );
 
-  // If cursor is within 150px, move it
-  if (distance < 150) {
-    moveButton();
-  }
-});
+  // Trigger movement only when mouse is close
+  if (distance < 50) {
+    const maxX = groupRect.width - btnRect.width;
+    const maxY = groupRect.height - btnRect.height;
 
-// Failsafe for hover and focus (keyboard)
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("focus", moveButton);
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+  }
+}
+
+// Attach proper event listener
+["mousemove", "click"].forEach((event) =>
+  btnGroup.addEventListener(event, moveButton)
+);
 
 function showSuccess() {
   document.getElementById("main-container").classList.add("hidden");

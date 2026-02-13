@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="main-container" class="card">
+      <h1>Will you be my Valentine?</h1>
+      <img
+        src="https://media2.giphy.com/media/l4Ki4biBSwhjyrS48/giphy.gif"
+        alt="will you be my valentine?"
+      />
+      <p>Choose wisely. There is no turning back.</p>
+
+      <div class="btn-group" style="position: relative">
+        <div class="btn-wrapper">
+          <button id="yes-btn" onclick="showSuccess()">Yes</button>
+        </div>
+        <div class="btn-wrapper">
+          <!-- <button id="no-btn" onmouseover="moveButton()">No</button> -->
+          <button id="no-btn" onmouseover="moveButton()">No</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="success-message" class="hidden card">
+      <h1>YAY!!!!</h1>
+      <img
+        loading="lazy"
+        src="https://gifdb.com/images/thumb/pink-anime-hello-kitty-syfiypg7l8ioisfc.gif"
+        alt="Happy Valentine"
+      />
+    </div>
+
+    <script src="move1.js"></script>
+  </body>
+</html>

@@ -42,3 +42,8 @@ function showSuccess() {
   document.getElementById("main-container").classList.add("hidden");
   document.getElementById("success-message").classList.remove("hidden");
 }
+
+document.querySelector("#goback").addEventListener("click", (e) => {
+  e.target.style.display = "none";
+  document.querySelector("#told-yay").style.display = "block";
+});

@@ -125,3 +125,6 @@ button {
 .btn-wrapper {
   width: 120px;
 }
+#told-yay {
+  display: none;
+}
